@@ -42,6 +42,15 @@ export const BRANCH_META: Record<Branch, { label: string; vehicle: string; icon:
   public: { label: '공익', vehicle: '버스', icon: '🚌', themeClass: 'theme-public' },
 };
 
+export interface FriendInfo {
+  id: string;
+  nickname: string;
+  branch: Branch;
+  enlistmentDate: string;
+  dischargeDate: string;
+  profilePic?: string;
+}
+
 interface UserState {
   nickname: string;
   branch: Branch;
@@ -49,23 +58,51 @@ interface UserState {
   dischargeDate: string;
   viewMode: ViewMode;
   currentSkinId: string | null;
+  profilePic?: string;
+  friends: FriendInfo[];
+
   setBranch: (b: Branch) => void;
   setDates: (enlistment: string, discharge: string) => void;
   setNickname: (n: string) => void;
   setViewMode: (m: ViewMode) => void;
   setCurrentSkin: (id: string | null) => void;
+  setProfilePic: (url: string) => void;
+  addFriend: (f: FriendInfo) => void;
+  removeFriend: (id: string) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
-  nickname: '용사',
+  nickname: '권선우',
   branch: 'army',
   enlistmentDate: '2024-06-01',
   dischargeDate: '2025-12-01',
   viewMode: 'soldier',
   currentSkinId: null,
+  profilePic: 'https://i.pravatar.cc/150?u=sunwoo',
+  friends: [
+    {
+      id: 'f1',
+      nickname: '김동기',
+      branch: 'airforce',
+      enlistmentDate: '2024-03-15',
+      dischargeDate: '2025-12-14',
+      profilePic: 'https://i.pravatar.cc/150?u=donggi'
+    },
+    {
+      id: 'f2',
+      nickname: '이해군',
+      branch: 'navy',
+      enlistmentDate: '2023-10-01',
+      dischargeDate: '2025-06-30',
+      profilePic: 'https://i.pravatar.cc/150?u=haegun'
+    }
+  ],
   setBranch: (branch) => set({ branch }),
   setDates: (enlistmentDate, dischargeDate) => set({ enlistmentDate, dischargeDate }),
   setNickname: (nickname) => set({ nickname }),
   setViewMode: (viewMode) => set({ viewMode }),
   setCurrentSkin: (currentSkinId) => set({ currentSkinId }),
+  setProfilePic: (profilePic) => set({ profilePic }),
+  addFriend: (f) => set((s) => ({ friends: [...s.friends, f] })),
+  removeFriend: (id) => set((s) => ({ friends: s.friends.filter(f => f.id !== id) })),
 }));

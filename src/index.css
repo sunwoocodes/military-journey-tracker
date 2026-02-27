@@ -2,102 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
 @layer base {
   :root {
-    /* Default: Army theme */
-    --background: 220 20% 7%;
-    --foreground: 45 100% 95%;
+    --background: 210 50% 98%;
+    --foreground: 220 20% 20%;
 
-    --card: 220 18% 11%;
-    --card-foreground: 45 100% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
 
-    --popover: 220 18% 11%;
-    --popover-foreground: 45 100% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
 
-    --primary: 32 100% 50%;
-    --primary-foreground: 220 20% 7%;
+    --primary: 220 20% 20%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 140 30% 25%;
-    --secondary-foreground: 140 60% 80%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 140 40% 35%;
-    --accent-foreground: 140 60% 90%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 32 100% 50%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
-
-    /* Branch-specific accents */
-    --branch-primary: 140 30% 30%;
-    --branch-secondary: 140 15% 45%;
-    --branch-glow: 140 50% 40%;
-
-    /* LED Display colors */
-    --led-orange: 32 100% 50%;
-    --led-green: 120 80% 45%;
-    --led-red: 0 85% 55%;
-    --led-blue: 210 90% 55%;
-    --led-dim: 220 10% 25%;
-
-    /* Station line */
-    --station-active: 32 100% 50%;
-    --station-passed: 140 40% 35%;
-    --station-future: 220 10% 25%;
-
-    --sidebar-background: 220 18% 9%;
-    --sidebar-foreground: 45 100% 95%;
-    --sidebar-primary: 32 100% 50%;
-    --sidebar-primary-foreground: 220 20% 7%;
-    --sidebar-accent: 220 15% 15%;
-    --sidebar-accent-foreground: 45 100% 95%;
-    --sidebar-border: 220 15% 18%;
-    --sidebar-ring: 32 100% 50%;
-  }
-
-  /* Navy theme */
-  .theme-navy {
-    --secondary: 220 50% 25%;
-    --secondary-foreground: 220 60% 80%;
-    --accent: 220 50% 40%;
-    --accent-foreground: 220 60% 90%;
-    --branch-primary: 220 50% 30%;
-    --branch-secondary: 220 30% 45%;
-    --branch-glow: 220 60% 45%;
-    --station-passed: 220 50% 40%;
-  }
-
-  /* Air Force theme */
-  .theme-airforce {
-    --secondary: 200 60% 30%;
-    --secondary-foreground: 200 70% 85%;
-    --accent: 200 60% 45%;
-    --accent-foreground: 200 70% 95%;
-    --branch-primary: 200 60% 35%;
-    --branch-secondary: 200 40% 50%;
-    --branch-glow: 200 70% 50%;
-    --station-passed: 200 60% 45%;
-  }
-
-  /* Public Service theme */
-  .theme-public {
-    --secondary: 210 40% 30%;
-    --secondary-foreground: 210 50% 80%;
-    --accent: 210 45% 45%;
-    --accent-foreground: 210 50% 90%;
-    --branch-primary: 210 40% 35%;
-    --branch-secondary: 210 30% 50%;
-    --branch-glow: 210 50% 50%;
-    --station-passed: 210 45% 45%;
+    --radius: 1rem;
   }
 }
 
@@ -108,74 +45,80 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Noto Sans KR', sans-serif;
-  }
-}
-
-@layer components {
-  .led-text {
-    font-family: 'Share Tech Mono', monospace;
-    text-shadow: 0 0 8px hsl(var(--led-orange) / 0.6),
-                 0 0 20px hsl(var(--led-orange) / 0.3);
-  }
-
-  .led-text-green {
-    font-family: 'Share Tech Mono', monospace;
-    text-shadow: 0 0 8px hsl(var(--led-green) / 0.6),
-                 0 0 20px hsl(var(--led-green) / 0.3);
-  }
-
-  .led-text-red {
-    font-family: 'Share Tech Mono', monospace;
-    text-shadow: 0 0 8px hsl(var(--led-red) / 0.6),
-                 0 0 20px hsl(var(--led-red) / 0.3);
-  }
-
-  .led-panel {
-    @apply bg-card rounded-lg border border-border;
-    box-shadow: inset 0 1px 0 hsl(var(--muted) / 0.3),
-                0 4px 20px hsl(220 20% 3% / 0.5);
-  }
-
-  .station-dot {
-    @apply w-4 h-4 rounded-full border-2;
-    box-shadow: 0 0 8px currentColor;
-  }
-
-  .glow-border {
-    box-shadow: 0 0 15px hsl(var(--branch-glow) / 0.3),
-                inset 0 0 15px hsl(var(--branch-glow) / 0.05);
-  }
-
-  .title-korean {
-    font-family: 'Black Han Sans', sans-serif;
+    font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+    /* Beautiful sunset gradient background */
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    background: linear-gradient(180deg, #E6F3FA 0%, #FFE9DE 50%, #E2EDF8 100%);
+    background-attachment: fixed;
+    height: 100vh;
+    overflow: hidden;
   }
 }
 
 @layer utilities {
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
+  .glass {
+    @apply bg-white/40 backdrop-blur-xl border border-white/60;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
   }
 
-  @keyframes pulse-glow {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+  .glass-dark {
+    @apply bg-white/60 backdrop-blur-2xl border border-white/80;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
   }
 
-  .animate-train-move {
-    animation: train-move 3s ease-in-out infinite;
+  .glass-panel {
+    @apply rounded-[24px] bg-white/40 backdrop-blur-xl border border-white/60;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
   }
 
-  @keyframes train-move {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(4px); }
+  /* Split flap display style */
+  .split-flap {
+    @apply bg-[#4A4A4A] text-white font-mono rounded-md flex items-center justify-center font-bold relative overflow-hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(255, 255, 255, 0.3);
   }
 
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .split-flap::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+
+  .text-glow {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
+  @keyframes vehicleMove {
+    0% {
+      transform: scale(1.0) translateX(0px);
+    }
+
+    50% {
+      transform: scale(1.05) translateX(-2%);
+    }
+
+    100% {
+      transform: scale(1.0) translateX(0px);
+    }
+  }
+
+  .animate-vehicle-move {
+    animation: vehicleMove 15s ease-in-out infinite;
   }
 }

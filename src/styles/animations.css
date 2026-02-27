@@ -1,0 +1,70 @@
+@layer components {
+  /* Rail Track Perspective */
+  .rail-container {
+    perspective: 1000px;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rail-track {
+    position: absolute;
+    bottom: 40px;
+    left: -10%;
+    width: 120%;
+    height: 12px;
+    background: linear-gradient(90deg, #555 0%, #333 100%);
+    transform: rotateX(60deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  }
+
+  .rail-sleeper {
+    position: absolute;
+    width: 4px;
+    height: 30px;
+    background: #444;
+    transform: rotateX(60deg) rotateY(90deg);
+  }
+
+  /* Station Building Styles */
+  .station-building {
+    position: absolute;
+    bottom: 50px;
+    width: 40px;
+    height: 50px;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 10;
+  }
+
+  .station-roof {
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    width: 50px;
+    height: 15px;
+    background: hsl(var(--primary));
+    transform: perspective(100px) rotateX(20deg);
+    border-radius: 2px;
+  }
+
+  /* Digital Board Typography */
+  .digital-font {
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.1em;
+  }
+
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .glow-text-primary {
+    color: hsl(var(--primary));
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  }
+}
