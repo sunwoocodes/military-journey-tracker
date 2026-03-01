@@ -74,8 +74,8 @@ interface UserState {
 export const useUserStore = create<UserState>((set) => ({
   nickname: '권선우',
   branch: 'army',
-  enlistmentDate: '2024-06-01',
-  dischargeDate: '2025-12-01',
+  enlistmentDate: '2026-02-28T00:00:00+09:00',
+  dischargeDate: '2026-03-01T20:00:00+09:00',
   viewMode: 'soldier',
   currentSkinId: null,
   profilePic: 'https://i.pravatar.cc/150?u=sunwoo',
@@ -84,16 +84,16 @@ export const useUserStore = create<UserState>((set) => ({
       id: 'f1',
       nickname: '김동기',
       branch: 'airforce',
-      enlistmentDate: '2024-03-15',
-      dischargeDate: '2025-12-14',
+      enlistmentDate: '2025-05-15',
+      dischargeDate: '2027-02-14',
       profilePic: 'https://i.pravatar.cc/150?u=donggi'
     },
     {
       id: 'f2',
       nickname: '이해군',
       branch: 'navy',
-      enlistmentDate: '2023-10-01',
-      dischargeDate: '2025-06-30',
+      enlistmentDate: '2025-10-01',
+      dischargeDate: '2027-06-30',
       profilePic: 'https://i.pravatar.cc/150?u=haegun'
     }
   ],

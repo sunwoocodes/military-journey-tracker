@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { differenceInDays, parseISO, isValid } from 'date-fns';
-import { useUserStore, FriendInfo, RANK_DATA, Branch } from '@/stores/userStore';
+import { differenceInCalendarDays, parseISO, isValid } from 'date-fns';
+import { useUserStore, FriendInfo, RANK_DATA } from '@/stores/userStore';
+import { JourneyRoute } from './home/JourneyRoute';
 
 interface ServiceCardProps {
     user?: boolean;
@@ -30,10 +31,14 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ user, friend }) => {
     const isValidDates = isValid(enlistment) && isValid(discharge);
 
     // Calculations
-    const totalDays = isValidDates ? differenceInDays(discharge, enlistment) : 0;
-    const servedDays = isValidDates ? Math.max(0, differenceInDays(today, enlistment)) : 0;
-    const remainingDays = isValidDates ? Math.max(0, differenceInDays(discharge, today)) : 0;
-    const percent = totalDays > 0 ? Math.min(100, Math.max(0, (servedDays / totalDays) * 100)) : 0;
+    const totalDays = isValidDates ? differenceInCalendarDays(discharge, enlistment) + 1 : 0;
+    const servedDays = isValidDates ? Math.max(0, differenceInCalendarDays(today, enlistment)) : 0;
+    const remainingDays = isValidDates ? Math.max(0, differenceInCalendarDays(discharge, today)) : 0;
+
+    // Calculate highly accurate percentage based on seconds so the timer works continuously down to the wire
+    const totalSeconds = isValidDates ? (discharge.getTime() - enlistment.getTime()) / 1000 : 0;
+    const servedSeconds = isValidDates ? Math.max(0, (today.getTime() - enlistment.getTime()) / 1000) : 0;
+    const percent = totalSeconds > 0 ? Math.min(100, Math.max(0, (servedSeconds / totalSeconds) * 100)) : 0;
 
     // Derive Rank
     const rankData = RANK_DATA[data.branch] || RANK_DATA['army'];
@@ -105,20 +110,18 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ user, friend }) => {
                 </div>
             </div>
 
-            {/* Progress Bar */}
+            {/* Progress Diagram (JourneyRoute) */}
             <div className="mb-5">
                 <div className="flex justify-between text-xs font-bold text-gray-600 mb-1.5 px-1">
                     <span>복무율</span>
                     <span className="text-gray-900">{percent.toFixed(1)}%</span>
                 </div>
-                <div className="h-3 w-full bg-white/40 rounded-full overflow-hidden shadow-inner border border-white/50">
-                    <div
-                        className="h-full bg-gradient-to-r from-gray-800 to-gray-600 rounded-full transition-all duration-1000 ease-out relative"
-                        style={{ width: `${percent}%` }}
-                    >
-                        <div className="absolute inset-0 bg-white/20 w-1/2 rounded-full blur-sm transform -skew-x-12 translate-x-full animate-shine" />
-                    </div>
-                </div>
+                <JourneyRoute
+                    branch={data.branch}
+                    percent={percent}
+                    enlistmentDate={data.enlistmentDate}
+                    dischargeDate={data.dischargeDate}
+                />
             </div>
 
             {/* Next Rank Info */}
@@ -131,7 +134,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ user, friend }) => {
                     {/* Simple Split Flap visual representation for days */}
                     <div className="flex space-x-0.5">
                         {daysToNextRank.toString().padStart(3, '0').split('').map((d, i) => (
-                            <div key={i} className="split-flap w-6 h-8 text-sm">{d}</div>
+                            <div key={i} className="split-flap w-5 h-7 text-xs sm:w-6 sm:h-8 sm:text-sm">{d}</div>
                         ))}
                     </div>
                 </div>

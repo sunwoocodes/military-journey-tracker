@@ -91,19 +91,7 @@ const Index = () => {
           </div>
         )}
 
-        {/* Floating Station Tags */}
-        <div className="absolute top-[30%] left-[8%] glass px-3 py-1 text-xs font-extrabold rounded-xl text-gray-800 shadow-lg animate-pulse">
-          이병역
-        </div>
-        <div className="absolute top-[22%] left-[38%] glass px-3 py-1 text-xs font-extrabold rounded-xl text-gray-800 shadow-lg animate-pulse delay-150">
-          일병역
-        </div>
-        <div className="absolute top-[16%] right-[22%] glass px-3 py-1 text-xs font-extrabold rounded-xl text-gray-800 shadow-lg animate-pulse delay-300">
-          상병역
-        </div>
-        <div className="absolute top-[8%] right-[8%] glass px-3 py-1 text-xs font-extrabold rounded-xl text-gray-800 shadow-lg animate-pulse delay-700">
-          병장역
-        </div>
+        {/* Floating Station Tags removed since JourneyRoute handles it now */}
 
         {/* Swipable Service Cards */}
         <div className="w-full mt-auto mb-6">
