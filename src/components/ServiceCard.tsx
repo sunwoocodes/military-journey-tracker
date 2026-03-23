@@ -89,23 +89,39 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ user, friend }) => {
                 </div>
             </div>
 
-            {/* Main Stats Grid */}
-            <div className="grid grid-cols-2 gap-3 mb-4">
-                <div className="glass p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">전체 복무일</span>
-                    <div className="text-xl font-black text-gray-800">{totalDays}일</div>
-                </div>
-                <div className="glass p-3 rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-12 h-12 bg-blue-100 rounded-full blur-xl -mr-6 -mt-6"></div>
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">입대 후</span>
-                    <div className="text-xl font-black text-blue-600">+{servedDays}일</div>
-                </div>
+            {/* Digital Dashboard for Stats (Light/Glass Theme) */}
+            <div className="glass p-2 rounded-2xl mb-4 shadow-sm border border-white/60 relative z-0">
+                <div className="grid grid-cols-2 gap-2 relative z-10">
+                    {/* Total Days */}
+                    <div className="bg-white/40 p-3 rounded-xl flex flex-col items-center justify-center text-center border border-white/50 shadow-inner">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">전체 복무일</span>
+                        <div className="flex items-baseline space-x-1">
+                            <span className="text-2xl font-mono font-bold text-slate-700 tracking-wider">
+                                {totalDays.toString().padStart(3, '0')}
+                            </span>
+                            <span className="text-xs text-slate-500 font-bold">일</span>
+                        </div>
+                    </div>
 
-                <div className="glass p-3 rounded-2xl flex flex-col items-center justify-center text-center col-span-2 relative overflow-hidden bg-gradient-to-br from-white/60 to-white/30 border border-white/60 shadow-sm">
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-red-100 rounded-full blur-2xl -ml-10 -mb-10 opacity-60"></div>
-                    <span className="text-[11px] font-bold text-gray-600 uppercase tracking-wider mb-1 z-10">전역까지 남은 일수</span>
-                    <div className="text-4xl font-black text-gray-900 tracking-tighter drop-shadow-sm z-10">
-                        D-{remainingDays}
+                    {/* Served Days */}
+                    <div className="bg-white/40 p-3 rounded-xl flex flex-col items-center justify-center text-center border border-white/50 shadow-inner">
+                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">입대 후</span>
+                        <div className="flex items-baseline space-x-1">
+                            <span className="text-2xl font-mono font-bold text-blue-600 tracking-wider">
+                                +{servedDays.toString().padStart(3, '0')}
+                            </span>
+                            <span className="text-xs text-blue-400 font-bold">일</span>
+                        </div>
+                    </div>
+
+                    {/* Remaining Days */}
+                    <div className="col-span-2 bg-gradient-to-br from-blue-500 to-indigo-600 p-4 rounded-xl flex flex-col items-center justify-center text-center border border-blue-400/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)] overflow-hidden relative mt-1">
+                        {/* Subtle inner highlight */}
+                        <div className="absolute top-0 left-0 right-0 h-1/2 bg-white/10 rounded-t-xl pointer-events-none"></div>
+                        <span className="text-[11px] font-bold text-blue-100 uppercase tracking-widest mb-1 z-10">전역까지 남은 일수</span>
+                        <div className="text-[3rem] font-mono font-black text-white drop-shadow-md tracking-[0.1em] z-10 leading-none py-1 tabular-nums">
+                            D-{remainingDays.toString().padStart(3, '0')}
+                        </div>
                     </div>
                 </div>
             </div>
