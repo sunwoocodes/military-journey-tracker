@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Settings2 } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import BottomNav from '@/components/layout/BottomNav';
 
 // Helper component for simple split flap display (used here and in ServiceCard)
@@ -38,8 +39,19 @@ import ServiceCard from '@/components/ServiceCard';
 
 const Index = () => {
   const store = useUserStore();
-  const [emblaRef] = useEmblaCarousel({ loop: false });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+    emblaApi.on('select', onSelect);
+    onSelect();
+    return () => { emblaApi.off('select', onSelect); };
+  }, [emblaApi]);
 
   // Combine user and friends for the carousel
   const slides: Array<{ isUser: boolean; friend?: import('@/stores/userStore').FriendInfo }> = [
@@ -47,18 +59,30 @@ const Index = () => {
     ...store.friends.map(f => ({ isUser: false, friend: f }))
   ];
 
+  const currentSlide = slides[selectedIndex] || slides[0];
+  const activeBranch = currentSlide.isUser ? store.branch : (currentSlide.friend?.branch || 'army');
+
   return (
     <div className="relative h-screen w-full max-w-md mx-auto overflow-hidden bg-gradient-to-b from-[#E6F3FA] via-[#FFE9DE] to-[#E2EDF8]">
-      {/* Moving Background 3D Image */}
-      <div
-        className="absolute top-0 w-full h-[65%] bg-cover bg-center animate-vehicle-move"
-        style={{
-          backgroundImage: `url(${backgroundMap[store.branch]})`,
-          backgroundPosition: 'center 20%',
-          maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)'
-        }}
-      />
+      {/* Moving Background 3D Image with Smooth Crossfade */}
+      <div className="absolute top-0 w-full h-[65%] overflow-hidden pointer-events-none">
+        <AnimatePresence>
+          <motion.div
+            key={activeBranch}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="absolute inset-0 bg-cover bg-center animate-vehicle-move"
+            style={{
+              backgroundImage: `url(${backgroundMap[activeBranch]})`,
+              backgroundPosition: 'center 20%',
+              maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)'
+            }}
+          />
+        </AnimatePresence>
+      </div>
 
       {/* Overlay Content */}
       <div className="relative z-10 w-full h-full flex flex-col items-center pb-24 pt-10 px-5">

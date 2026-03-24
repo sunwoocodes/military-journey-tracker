@@ -254,7 +254,7 @@ export const JourneyRoute: React.FC<JourneyRouteProps> = ({ branch, percent, enl
                             {/* Show names only for first, last, current, or next to avoid clutter when there are many nodes (like Navy/AirForce). */}
                             {(mappedNodes.length <= 4 || isFirst || isLast || node === currentSegment.current || node === currentSegment.next) && (
                                 <div className={`absolute top-4 text-[9px] font-bold whitespace-nowrap transition-colors ${node === currentSegment.current || node === currentSegment.next ? 'text-blue-600 scale-110 drop-shadow-sm' :
-                                        isCompleted ? 'text-gray-800' : 'text-gray-400'
+                                    isCompleted ? 'text-gray-800' : 'text-gray-400'
                                     }`}>
                                     {node.name}
                                 </div>
